@@ -4,15 +4,15 @@
 	// get XML file to transform
 	$file = $_GET['file'];
 	
-	//use example file if no file is provided
-	if(!$file){
+	//use example file if no file is provided or file doesn't start with http or https
+	if(!$file || preg_match("/^https?:\/\//i",$file)==0){
 		$file = "abcd_example_valid.xml";
 	}
 
 	$xslFile = "abcd_dataset_landingpage.xslt";
     
-    //Use the Saxon CE processor, to get XSLT2 support. 
-    //This needs to be installed separatly, see //www.saxonica.com/saxon-c/index.xml for details
+	//Use the Saxon CE processor, to get XSLT2 support. 
+	//This needs to be installed separatly, see //www.saxonica.com/saxon-c/index.xml for details
 	$proc = new SaxonProcessor();
 	
 	$proc->setSourceFile($file);
