@@ -2,6 +2,7 @@
 <xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:abcd="http://www.tdwg.org/schemas/abcd/2.06" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.w3.org/1999/xhtml">
 	<xsl:output method="xml" version="1.0" encoding="UTF-8" indent="yes"/>
 	<xsl:template match="/">
+		<xsl:for-each select="abcd:DataSets">
 		<html>
 		<head>
 			<title>ABCD Landingpage for <xsl:value-of select="abcd:DataSets/abcd:DataSet/abcd:Metadata/abcd:Description/abcd:Representation/abcd:Title"/></title>
@@ -23,7 +24,7 @@
 			</style>
 		</head>
 		<body>
-		<xsl:for-each select="abcd:DataSets/abcd:DataSet">
+		<xsl:for-each select="abcd:DataSet">
 		<div class="dataset">
 		<h2>ABCD Landingpage for <xsl:value-of select="abcd:Metadata/abcd:Description/abcd:Representation/abcd:Title"/></h2>
 		<p><xsl:value-of select="abcd:Metadata/abcd:Description/abcd:Representation/abcd:Details"/></p>
@@ -187,5 +188,6 @@
 		</xsl:for-each>			
 		</body>
 		</html>
+		</xsl:for-each>	
 	</xsl:template>
 </xsl:stylesheet>

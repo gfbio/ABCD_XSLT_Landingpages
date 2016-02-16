@@ -57,8 +57,8 @@
 	
 	$useZip = false;
 	$cache_token = "";
-	if($file && preg_match("/^https?:\/\//i",$file)==0){
-		$cache_token = md5("archive".$file);
+	if($file && preg_match("/^https?:\/\//i",$file)==1){
+		$cache_token = md5("file".$file);
 	}else{
 		if($archive && preg_match("/^https?:\/\/.*\.zip/i",$archive)==1){
 			//a zip file is handed over as archive parameter
@@ -197,17 +197,30 @@
 		$file = $joined_content;
 	}
 	
-	$xslFile = "abcd_dataset_landingpage.xslt";
+	$xslFile206 = "abcd_2.06_dataset_landingpage.xslt";
+	$xslFile21  = "abcd_2.1_dataset_landingpage.xslt";
     
 	//Use the Saxon CE processor, to get XSLT2 support. 
 	//This needs to be installed separatly, see //www.saxonica.com/saxon-c/index.xml for details
 	$proc = new SaxonProcessor();
 	
 	$proc->setSourceFile($file);
-	$proc->setStylesheetFile($xslFile);
+	$proc->setStylesheetFile($xslFile206);
 			  
 	$result = $proc->transformToString();               
-	if($result != null) {  
+	if($result != null) { 
+		if($result == "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"){
+			$proc = new SaxonProcessor();
+	
+			$proc->setSourceFile($file);
+			$proc->setStylesheetFile($xslFile21);
+			  
+			$result = $proc->transformToString();   
+			if($result == "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"){
+				echo "Transformation returned an empty result. This could be because the file is empty or because it is not in the ABCD 2.06 or 2.1 format";
+				http_response_code(500);
+			}
+		}
 		file_put_contents($output_file,$result);
 		echo $result;
 	} else {
