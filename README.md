@@ -35,7 +35,7 @@ Features
 Disadvantages
 -------------
 
--   requires XSLT 2 which is still not supported by most browsers and servers. To do the transformation on the server side, the server needs to have an XSLT 2 processor manually installed. Suggested processor: [Saxon-CE](http://www.saxonica.com/saxon-c/index.xml) (warning: it is a bit tricky to install)
+-   requires XSLT 2 which is still not supported by most browsers and servers. To do the transformation on the server side, the server needs to have an XSLT 2 processor manually installed. Suggested processor: [Saxon-HE/C](http://www.saxonica.com/saxon-c/index.xml) (warning: it is a bit tricky to install)
 
 Setup
 -----
